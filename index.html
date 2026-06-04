@@ -2,11 +2,151 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Namen om te onthouden</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#111827;
+  color:white;
+  text-align:center;
+  padding:20px;
+}
+h1{
+  color:#ec6aa0;
+}
+.card{
+  background:white;
+  color:black;
+  border-radius:20px;
+  padding:30px;
+  min-height:300px;
+  margin:20px auto;
+  max-width:700px;
+}
+button{
+  background:#ec6aa0;
+  color:white;
+  border:none;
+  padding:15px 25px;
+  border-radius:999px;
+  font-size:18px;
+  margin:5px;
+}
+.score{
+  font-weight:bold;
+  margin-bottom:10px;
+}
+img{
+  max-width:100%;
+  border-radius:15px;
+}
+</style>
 </head>
 <body>
-<h1>Namen om te onthouden</h1>
-<p>Upload dit bestand als index.html naar GitHub.</p>
+
+<h1>Flashcards ♥</h1>
+<h2>Namen om te onthouden</h2>
+
+<div class="score" id="score">Score: 0</div>
+
+<div class="card" id="card"></div>
+
+<button onclick="flipCard()">Toon naam</button>
+<button onclick="markCorrect()">Juist</button>
+<button onclick="nextCard()">Volgende</button>
+
+<script>
+
+const cards = [
+
+{
+hint:"me Annelies gekust.. maar wie niet?.. ex van Fizl",
+answer:"Thomas Charlier"
+},
+
+{
+hint:"Durft Magge al een voor te zwiepen.. maar wie niet?",
+answer:"Kevin Wouters"
+},
+
+{
+hint:"ook een Charlier maar die van Deadline",
+answer:"Simon Charlier"
+},
+
+{
+hint:"de Charlier van Ellen",
+answer:"Dieter Charlier"
+},
+
+{
+hint:"ex van Snuifhuis",
+answer:"Saki (Sander) Vangoitse"
+},
+
+{
+hint:"broer van Simon",
+answer:"Ruben Charlier"
+},
+
+{
+hint:"lief van Jad",
+answer:"Jan Charlier"
+},
+
+{
+hint:"een manier om dingen te onthouden waarbij je telkens vooraan een definitie of foto hebt en dan het bijhorende begrip moet noemen",
+answer:"Flashcards"
+}
+
+];
+
+let current=0;
+let showingAnswer=false;
+let score=0;
+
+function renderCard(){
+const card=document.getElementById("card");
+
+if(showingAnswer){
+card.innerHTML=
+"<h2>"+cards[current].answer+"</h2>";
+}else{
+card.innerHTML=
+"<h3>Hint</h3><p>"+cards[current].hint+"</p>";
+}
+}
+
+function flipCard(){
+showingAnswer=!showingAnswer;
+renderCard();
+}
+
+function nextCard(){
+current++;
+
+if(current>=cards.length){
+alert("Eindscore: "+score+"/"+cards.length);
+current=0;
+score=0;
+document.getElementById("score").innerHTML="Score: 0";
+}
+
+showingAnswer=false;
+renderCard();
+}
+
+function markCorrect(){
+score++;
+document.getElementById("score").innerHTML="Score: "+score;
+}
+
+renderCard();
+
+</script>
+
 </body>
 </html>
