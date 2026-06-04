@@ -9,23 +9,34 @@
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:#111827;
+  background:#0f172a;
   color:white;
   text-align:center;
   padding:20px;
 }
+
 h1{
   color:#ec6aa0;
+  margin-bottom:5px;
 }
+
 .card{
   background:white;
   color:black;
-  border-radius:20px;
-  padding:30px;
-  min-height:300px;
+  border-radius:25px;
+  padding:20px;
+  max-width:750px;
   margin:20px auto;
-  max-width:700px;
+  min-height:500px;
 }
+
+img{
+  width:100%;
+  max-height:420px;
+  object-fit:contain;
+  border-radius:15px;
+}
+
 button{
   background:#ec6aa0;
   color:white;
@@ -33,18 +44,16 @@ button{
   padding:15px 25px;
   border-radius:999px;
   font-size:18px;
-  margin:5px;
+  margin:6px;
 }
+
 .score{
+  font-size:22px;
   font-weight:bold;
-  margin-bottom:10px;
-}
-img{
-  max-width:100%;
-  border-radius:15px;
 }
 </style>
 </head>
+
 <body>
 
 <h1>Flashcards ♥</h1>
@@ -63,41 +72,49 @@ img{
 const cards = [
 
 {
+image:"IMG_7034.jpeg",
 hint:"me Annelies gekust.. maar wie niet?.. ex van Fizl",
 answer:"Thomas Charlier"
 },
 
 {
+image:"IMG_7036.png",
 hint:"Durft Magge al een voor te zwiepen.. maar wie niet?",
 answer:"Kevin Wouters"
 },
 
 {
+image:"IMG_7037.jpeg",
 hint:"ook een Charlier maar die van Deadline",
 answer:"Simon Charlier"
 },
 
 {
+image:"IMG_7038.jpeg",
 hint:"de Charlier van Ellen",
 answer:"Dieter Charlier"
 },
 
 {
+image:"IMG_7039.png",
 hint:"ex van Snuifhuis",
-answer:"Saki (Sander) Vangoitse"
+answer:"Saki (Sander) Vangoitse… who cares"
 },
 
 {
+image:"IMG_7041.png",
 hint:"broer van Simon",
 answer:"Ruben Charlier"
 },
 
 {
+image:"IMG_7043.png",
 hint:"lief van Jad",
 answer:"Jan Charlier"
 },
 
 {
+image:"",
 hint:"een manier om dingen te onthouden waarbij je telkens vooraan een definitie of foto hebt en dan het bijhorende begrip moet noemen",
 answer:"Flashcards"
 }
@@ -109,15 +126,37 @@ let showingAnswer=false;
 let score=0;
 
 function renderCard(){
+
 const card=document.getElementById("card");
+const c=cards[current];
 
 if(showingAnswer){
-card.innerHTML=
-"<h2>"+cards[current].answer+"</h2>";
+
+card.innerHTML=`
+<h2>${c.answer}</h2>
+`;
+
 }else{
-card.innerHTML=
-"<h3>Hint</h3><p>"+cards[current].hint+"</p>";
+
+if(c.image){
+
+card.innerHTML=`
+<img src="${c.image}">
+<h3>Hint</h3>
+<p>${c.hint}</p>
+`;
+
+}else{
+
+card.innerHTML=`
+<h3>Hint</h3>
+<p>${c.hint}</p>
+`;
+
 }
+
+}
+
 }
 
 function flipCard(){
@@ -125,23 +164,27 @@ showingAnswer=!showingAnswer;
 renderCard();
 }
 
+function markCorrect(){
+score++;
+document.getElementById("score").innerHTML="Score: "+score;
+}
+
 function nextCard(){
+
 current++;
 
 if(current>=cards.length){
+
 alert("Eindscore: "+score+"/"+cards.length);
+
 current=0;
 score=0;
+
 document.getElementById("score").innerHTML="Score: 0";
 }
 
 showingAnswer=false;
 renderCard();
-}
-
-function markCorrect(){
-score++;
-document.getElementById("score").innerHTML="Score: "+score;
 }
 
 renderCard();
